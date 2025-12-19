@@ -1,67 +1,80 @@
 import { useReducer, useState } from "react"
 
-export default function Tpl(){
+export default function TodosAmar(){
 
-     //step2: functionality lao action ki kruga
+    //2: you have to state an action here that is moreover change the things futther
     const reducer=(state,action)=>{
-
         if(action.type=="add"){
-            return[...state,action.data]
+            return[...state,action.text]
         }
-       
         if(action.type=="remove"){
-            return state.filter((item,i)=>i!==action.index)
+           return state.filter((item,i)=>i!==action.index) 
+        }
+        if(action.type=="clear"){
+            return []
         }
         return state
     }
 
 
-    //step 1:use reducer how it work
+
+    //1: you have created a thing that is going to store initail value
     const[state,dispatch]=useReducer(reducer,[])
-    const[data,setData]=useState("")
+    const[text,setText]=useState("")
 
 
-    // step 3:event handler
-    const handleSubmit=()=>{
-        dispatch({type:"add",data:data})
-        setData("")
+    //3 event handler
+
+    const changeEvent=()=>{
+        dispatch({type:"add",text:text})
+        setText("")
     }
 
-   
+    //clear all
+
+    const clearEvent=()=>{
+        dispatch({type:"clear"})
+    }
+    
+
+
 
     return(
-        <>
+        <>    
+        <section  className="flex items-center justify-center bg-sky-500 h-screen">  
+        <div class="h-[500px] bg-gradient-to-br from-sky-600 to-pink-500 w-[40%]">
 
-        <div className="">
-            <input type="text" value={data} className="" onChange={(e)=>setData(e.target.value)} />
-            <button onClick={handleSubmit}>Submit</button>
+        <div className="flex items-center justify-center pt-10 relative">
+         <h1 className="text-5xl text-center font-bold">TO  <span className="text-pink-700">DO</span> LIST</h1>
+           <button className="absolute h-12 ml-96 w-12 bg-red-500 text-white rounded-full" onClick={clearEvent}  >
+            🗑️
+            </button>
+            </div>
+       
+         <div className="flex justify-center items-center text-red-600 pt-10 gap-2 " >
+            <input type="text" name="" id=""  value={text} onChange={(e)=>setText(e.target.value)} placeholder="Add To Do" className=" w-80 h-10 pl-10 ml-6"/>
+            <button className="bg-[url(public/Images/8922789.png)] bg-cover h-10 w-10 hover:scale-125 transition duration-300" onClick={changeEvent}></button>
         </div>
 
-        <ul>
-        
+        <ul className=" overflow-y-auto h-[300px]" >
         {state.map((item,index)=>{
             return(
                 <>
-                
-             <li key={index}>
-                {item}
-                <button onClick={()=>{
-                    dispatch({type:"remove",index})
-                }}>
-                    delete
-                </button>
-                   </li>
-      
-
-                
-                
+                <div key={index} className="flex items-center justify-center ml-4 mt-2">
+                    <div className="bg-gray-300 h-8 w-80 hover:bg-gray-500 text-center whitespace-pre-wrap">{item}</div>
+                    <button className="  hover:scale-150 transition duration-300 h-10 w-10 pl-5 " onClick={()=>{
+                        dispatch({type:"remove",index})
+                    }}>❌</button>
+                </div>   
                 </>
             )
         })}
+        </ul>
+
+           </div> 
+        </section>
         
-  </ul>
-
-
+    
         </>
     )
 }

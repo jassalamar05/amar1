@@ -1,41 +1,48 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
+
 
 export default function Counter(){
-    const[input,setInput]=useState("")  //input feild ka data
-    const[show,setShow]=useState("")  //button click par show hoga
+    //step2:functionality
+    const reducer=(state,action)=>{
 
-    const handleClick=()=>{
-        setShow(input)
+        if(action.type=="add"){
+            return[...state,action.text]
+        }
+        if(action.type=="remove"){
+            return state.filter((item,i)=>i!==action.index)
+        }
     }
+    //step1:use resucer
+    const[state,dispatch]=useReducer(reducer,[])
+    const[text,setText]=useState("")
 
-    const resetclick=()=>{
-        setShow()
+    //step3:event handler
+    const handlesubmit=()=>{
+        dispatch({type:"add",text:text})
+        setText("")
     }
+            return(
+                <>
+                <div className="flex-col">
+                <input type="text" value={text} onChange={(e)=>setText(e.target.value)} />
+                <button onClick={handlesubmit}>Add</button>
+                    <ul>
+                {state.map((item,index)=>{
+                    return(
+                        <>
+                        <li key={index}>
+                            {item}
+                        </li>
 
-
-    return(
-        <>
-        <section>
-            <div>
-                <p className="text-blue-700 text-center text-4xl font-semibold">TO-DO-LIST</p>
-            </div>
-
-            <div className="flex relative justify-center">
-                <input type="text" name="" id=""  placeholder="ADD YOUR TEXT" className="p-2 bg-gray-200 rounded-xl px-20 mt-20 flex absolute" 
-                onChange={(e)=>setInput(e.target.value)} />
-
-                <br /><br />
-                <button onClick={handleClick} className="p-2 bg-orange-700 px-5 rounded-xl mt-20  flex absolute ml-[280px]">Show Data</button>
-
-                <div className="flex items-center justify-center mt-36">
-                 <h2>{show}</h2>
+                        <button onClick={()=>{
+                            dispatch({type:"remove",index})
+                        }}>Clear</button>
+                        </>
+                    )
+                })}
+                </ul>
                 </div>
-              
-            </div>
-        </section>
+                </>
+            )
     
-    <button onClick={resetclick}>Reset</button>
-        
-        </>
-    )
 }

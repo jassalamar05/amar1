@@ -8,6 +8,7 @@ import Filter from './Component/Filter'
 import Filter1 from './Component/Filter2'
 import Ailt from './Component/Filt'
 import Tpl from './Component/Tolist'
+import TodosAmar from './Component/Tolist'
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <>
-   <Tpl/>
+  <TodosAmar/>
     {/* <Todo/> */}
     {/* <Ailt/> */}
     {/* <Filter1/> */}

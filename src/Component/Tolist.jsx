@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react"
+import icon from "/Images/8922789.png";
 
 export default function TodosAmar(){
 
@@ -53,7 +54,12 @@ export default function TodosAmar(){
        
          <div className="flex justify-center items-center text-red-600 pt-10 gap-2 " >
             <input type="text" name="" id=""  value={text} onChange={(e)=>setText(e.target.value)} placeholder="Add To Do" className=" w-80 h-10 pl-10 ml-6"/>
-            <button className="bg-[url(public/Images/8922789.png)] bg-cover h-10 w-10 hover:scale-125 transition duration-300" onClick={changeEvent}></button>
+                <img
+                src="/public/Images/8922789.png"
+                alt="icon"
+                className="h-10 w-10 cursor-pointer hover:scale-125 transition duration-300"
+                onClick={changeEvent}
+                />
         </div>
 
         <ul className=" overflow-y-auto h-[300px]" >

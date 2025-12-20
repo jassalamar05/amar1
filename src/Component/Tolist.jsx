@@ -42,43 +42,114 @@ export default function TodosAmar(){
 
     return(
         <>    
-        <section  className="flex items-center justify-center bg-sky-500 h-screen">  
-        <div class="h-[500px] bg-gradient-to-br from-sky-600 to-pink-500 w-[40%]">
+        <section className="flex items-center justify-center bg-sky-500 h-screen px-4">
+  {/* MAIN CARD */}
+  <div className="
+    h-auto 
+    bg-gradient-to-br from-sky-600 to-pink-500 
+    w-full 
+    sm:w-[90%] 
+    md:w-[70%] 
+    lg:w-[40%] 
+    rounded-xl
+    pb-6
+  ">
 
-        <div className="flex items-center justify-center pt-10 relative">
-         <h1 className="text-5xl text-center font-bold">TO  <span className="text-pink-700">DO</span> LIST</h1>
-           <button className="absolute h-12 ml-96 w-12 bg-red-500 text-white rounded-full" onClick={clearEvent}  >
-            🗑️
-            </button>
-            </div>
-       
-         <div className="flex justify-center items-center text-red-600 pt-10 gap-2 " >
-            <input type="text" name="" id=""  value={text} onChange={(e)=>setText(e.target.value)} placeholder="Add To Do" className=" w-80 h-10 pl-10 ml-6"/>
-                <img
-                src="/public/Images/8922789.png"
-                alt="icon"
-                className="h-10 w-10 cursor-pointer hover:scale-125 transition duration-300"
-                onClick={changeEvent}
-                />
+    {/* HEADING */}
+    <div className="flex items-center justify-center pt-10 relative px-4">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl text-center font-bold">
+        TO <span className="text-pink-700">DO</span> LIST
+      </h1>
+
+      {/* CLEAR BUTTON */}
+      <button
+        className="
+          absolute 
+          right-4 
+          h-10 w-10 
+          sm:h-12 sm:w-12 
+          bg-red-500 text-white rounded-full
+        "
+        onClick={clearEvent}
+      >
+        🗑️
+      </button>
+    </div>
+
+    {/* INPUT AREA */}
+    <div className="
+      flex 
+      flex-col 
+      sm:flex-row 
+      justify-center 
+      items-center 
+      text-red-600 
+      pt-10 
+      gap-4
+      px-4
+    ">
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Add To Do"
+        className="
+          w-full 
+          sm:w-80 
+          h-10 
+          pl-4 
+          rounded
+        "
+      />
+
+      <img
+        src="/public/Images/8922789.png"
+        alt="icon"
+        className="
+          h-10 w-10 
+          cursor-pointer 
+          hover:scale-125 
+          transition 
+          duration-300
+        "
+        onClick={changeEvent}
+      />
+    </div>
+
+    {/* TODO LIST */}
+    <ul className="overflow-y-auto max-h-[300px] mt-6 px-4">
+      {state.map((item, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-center gap-2 mt-2"
+        >
+          <div className="
+            bg-gray-300 
+            h-auto 
+            min-h-[32px]
+            w-full 
+            sm:w-80 
+            hover:bg-gray-500 
+            text-center 
+            px-2 
+            break-words
+          ">
+            {item}
+          </div>
+
+          <button
+            className="hover:scale-150 transition duration-300 h-8 w-8"
+            onClick={() => dispatch({ type: "remove", index })}
+          >
+            ❌
+          </button>
         </div>
+      ))}
+    </ul>
 
-        <ul className=" overflow-y-auto h-[300px]" >
-        {state.map((item,index)=>{
-            return(
-                <>
-                <div key={index} className="flex items-center justify-center ml-4 mt-2">
-                    <div className="bg-gray-300 h-8 w-80 hover:bg-gray-500 text-center whitespace-pre-wrap">{item}</div>
-                    <button className="  hover:scale-150 transition duration-300 h-10 w-10 pl-5 " onClick={()=>{
-                        dispatch({type:"remove",index})
-                    }}>❌</button>
-                </div>   
-                </>
-            )
-        })}
-        </ul>
+  </div>
+</section>
 
-           </div> 
-        </section>
         
     
         </>
